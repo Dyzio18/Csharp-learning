@@ -1,26 +1,56 @@
-using System;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-public class Employee {
-    public string Name;
-    public string Surname { get; set; }
-    private DateTime BirthDate { get; set; }
-    private double Salary { get; set; }
-    private int JobPosition { get; set; }
+namespace zp1_lab
+{
+    public enum JobNames
+    {
+        JuniorDeveloper = 1,
+        MidDeveloper = 2,
+        SeniorDeveloper = 3
+    };
 
-    enum Jobs : int { JuniorDeveloper,  MidDeveloper, SeniorDeveloper};
+    public class Employee {
+        public string Name;
+        public string Surname { get; set; }
+        public DateTime BirthDate { get; set; }
+        private double salary;
+        public JobNames JobPosition { get; set; }
 
-    public Employee () {
-        this.Name = "undefined";
-        this.Surname = "undefined";
+        // https://www.p-programowanie.pl/c-sharp/wlasciwosci-akcesory-get-set/ 
+        public double Salary {
+            get
+            {
+                return salary;
+            }
+            set
+            {
+                salary = value;
+            }
+        }
+
+        public Employee () {
+            this.Name = "undefined";
+            this.Surname = "undefined";
+        }
+
+        public Employee(string name, string surname, DateTime birth, int salary, JobNames job)
+        {
+            this.Name = name;
+            this.Surname = surname;
+            this.BirthDate = birth;
+            this.Salary = salary;
+            this.JobPosition = job;
+        }
+
+        //public string printInfo () =>  $"Imie {this.Name}\nNazwisko: {this.Surname}\nData urodzenia: {this.BirthDate}\nPensja: {this.Salary}\nStanowisko: {this.JobPosition}\n";
+        public string PrintInfo()
+        {
+            string jobPosition = Helpers.InsertSpaceBeforeUpperCase(this.JobPosition.ToString());
+            return "Imie: " + this.Name + "\nNazwisko: " + this.Surname + "\nData urodzenia: " + this.BirthDate + "\nPensja: " + this.Salary + "\nStanowisko: " + jobPosition + "\n";
+        }
     }
-    public Employee (string name, string surname, DateTime birth, int salary, int job) {
-        this.Name = name;
-        this.Surname = surname;
-        this.BirthDate = birth;
-        this.Salary = salary;
-        this.JobPosition = job;
-    }
-
-    public string printInfo () => $"Imie {this.Name}\nNazwisko: {this.Surname}\nData urodzenia: {this.BirthDate}\nPensja: {this.Salary}\nStanowisko: {this.JobPosition}\n";
-
 }
